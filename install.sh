@@ -40,4 +40,11 @@ sudo mkfs -t ext4 /dev/sdc1
 sudo mkdir /datadrive
 sudo chown seilna:seilna /datadrive
 sudo mount /dev/sdc1 /datadrive
+sudo chown seilna:seilna /etc/fstab
+UUID=$(sudo -i blkid | tail -1 | cut -d \" -f2)  >> /etc/fstab
+echo "UUID=$UUID   /datadrive   ext4   defaults,nofail   1   2" >> /etc/fstab
 
+# docker image path change
+sudo systemctl stop docker
+sudo mkdir -p /datadrive/docker_dir && sudo chown seilna:seilna /datadrive/docker_dir
+sudo chown seilna:seilna /lib/systemd/system/docker.service
