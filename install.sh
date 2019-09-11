@@ -47,7 +47,9 @@ echo "UUID=$UUID   /datadrive   ext4   defaults,nofail   1   2" >> /etc/fstab
 sudo systemctl stop docker
 sudo mkdir -p /datadrive/docker_dir && sudo chown seilna:seilna /datadrive/docker_dir
 sudo chown seilna:seilna /lib/systemd/system/docker.service
-echo "ExecStart=/usr/bin/dockerd -H fd:// -g /datadrive/docker_dir --containerd=/run/containerd/containerd.sock" >> /lib/systemd/system/docker.service
+DOCKER_PREVIOUS_PATH="ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock"
+DOCKER_PATH="ExecStart=/usr/bin/dockerd -H fd:// -g /datadrive/docker_dir --containerd=/run/containerd/containerd.sock" 
+sed -i 's/$DOCKER_PREVIOUS_PATH/$DOCKER_PATH' /lib/systemd/system/docker.service
 sudo rm -rf /var/lib/docker
 sudo systemctl daemon-reload
 sudo systemctl start docker
