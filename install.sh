@@ -54,6 +54,4 @@ sudo rm -rf /var/lib/docker
 sudo systemctl daemon-reload
 sudo systemctl start docker
 
-# bring & load docker image 
-rsync -avz --progress seilna@10.0.5.33:/datadrive/azure_image.tar /datadrive
-sudo docker load -i /datadrive/azure_image.tar
+sudo apt-get install -y cuda
