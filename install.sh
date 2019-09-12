@@ -53,3 +53,4 @@ sudo systemctl daemon-reload
 sudo systemctl start docker
 
 sudo apt-get install -y cuda
+sudo apt install -y nvidia-cuda-toolkit
