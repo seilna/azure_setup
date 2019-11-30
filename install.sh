@@ -1,19 +1,25 @@
-# cuda install
+# nvidia-driver, cuda uninstall
+sudo apt-get remove --purge '^nvidia-.*'
+sudo apt-get install ubuntu-desktop
+sudo rm /etc/X11/xorg.conf
+echo 'nouveau' | sudo tee -a /etc/modules
 sudo apt-get -y purge cuda
 sudo apt-get -y purge libcudnn*
-sudo apt-get -y purge libcudnn*
 
+# install nvidia-driver, cuda, cudnn
 wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1604-10-0-local-10.0.130-410.48_1.0-1_amd64
 wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb
 wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libcudnn7_7.6.3.30-1+cuda10.0_amd64.deb
+
 sudo dpkg -i cuda-repo-ubuntu1604-10-0-local-10.0.130-410.48_1.0-1_amd64
 sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
 sudo dpkg -i libcudnn7_7.6.3.30-1+cuda10.0_amd64.deb
 sudo dpkg -i nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb
+
 sudo apt-get update 
 sudo apt-get install -y cuda
-sudo apt install -y libnccl2=2.4.8-1+cuda10.0 libnccl-dev=2.4.8-1+cuda10.0
-sudo apt install -y nvidia-cuda-toolkit
+sudo apt install -y libnccl2=2.4.8-1+cuda10.0 libnccl-dev=2.4.8-1+cuda10.0 nvidia-cuda-toolkit
+
 # docker install
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
